@@ -1,0 +1,99 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://www.blizzard.com/wow/ui/..\..\FrameXML\UI.xsd">
+  <Script File="lua/cli.lua"/>
+  <Script File="lua/libcolor.lua"/>
+  <Script File="lua/main.lua"/>
+    
+  <Frame name="MainFrame"
+         parent="UIParent"
+         hidden="false"
+         enableMouse="true">
+
+    <Size x="90" y="30"/>
+    <Anchors>
+      <Anchor point="TOPLEFT">
+        <Offset x="0" y="0"/>
+      </Anchor>
+    </Anchors>
+
+    <Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background"
+              edgeFile="Interface\Tooltips\UI-Tooltip-Border"
+              tile="true">
+      <TileSize>
+        <AbsValue val="16"/>
+      </TileSize>
+      <EdgeSize>
+        <AbsValue val="16"/>
+      </EdgeSize>
+      <BackgroundInsets>
+        <AbsInset left="4" right="3" top="4" bottom="3"/>
+      </BackgroundInsets>
+      <Color r="0.2" g="0.2" b="0.2" a="0.7"/>
+    </Backdrop>
+
+    <Frames>
+    </Frames>
+
+    <Layers>
+      <Layer level="ARTWORK">
+        <Texture name="xTex">
+          <Size x="20" y="20"/>
+          <Anchors>
+            <Anchor point="TOPLEFT">
+              <Offset x="5" y="-5"/>
+            </Anchor>
+          </Anchors>
+        </Texture>
+      </Layer>
+
+      <Layer level="ARTWORK">
+        <Texture name="yTex">
+          <Size x="20" y="20"/>
+          <Anchors>
+            <Anchor point="TOPLEFT"
+                    relativeTo="xTex"
+                    relativePoint="TOPRIGHT">
+              <Offset x="0" y="0"/>
+            </Anchor>
+          </Anchors>
+        </Texture>
+      </Layer>
+
+      <Layer level="ARTWORK">
+        <Texture name="pitchTex">
+          <Size x="20" y="20"/>
+          <Anchors>
+            <Anchor point="TOPLEFT"
+                    relativeTo="yTex"
+                    relativePoint="TOPRIGHT">
+              <Offset x="0" y="0"/>
+            </Anchor>
+          </Anchors>
+        </Texture>
+      </Layer>
+      <Layer level="ARTWORK">
+        <Texture name="azimythTex">
+          <Size x="20" y="20"/>
+          <Anchors>
+            <Anchor point="TOPLEFT"
+                    relativeTo="pitchTex"
+                    relativePoint="TOPRIGHT"/>
+          </Anchors>
+        </Texture>
+      </Layer>
+    </Layers>
+
+
+    <Scripts>
+      <OnLoad function="onload"/>
+      <OnUpdate function="onupdate"/>
+      <!-- <OnMouseDown>
+        MainFrame:StartMoving();
+      </OnMouseDown>
+      <OnMouseUp>
+        MainFrame:StopMovingOrSizing();
+      </OnMouseUp> -->
+    </Scripts>
+
+  </Frame>
+</Ui>
