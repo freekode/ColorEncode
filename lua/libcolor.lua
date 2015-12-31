@@ -13,7 +13,6 @@ function buildCoordinates(number)
     return parts
 end
 
-
 -- -1.468
 function buildPitch(number)
     local parts = {0, 0, 0}
@@ -37,7 +36,6 @@ function buildPitch(number)
     return parts
 end
 
-
 -- 3.05104
 function buildAzimyth(number)
     local parts = {0, 0, 0}
@@ -51,6 +49,22 @@ function buildAzimyth(number)
     parts.red = tonumber(string.sub(number, 3, 4)) / 100
     parts.green = tonumber(string.sub(number, 5, 6)) / 100
     parts.blue = tonumber(string.sub(number, 7, 8)) / 100
+
+    return parts
+end
+
+function buildBoolean(status)
+    local parts = {0, 0, 0}
+    
+    if status == true then
+        parts.red = 1
+        parts.green = 1
+        parts.blue = 1
+    else
+        parts.red = 0
+        parts.green = 0
+        parts.blue = 0
+    end
 
     return parts
 end

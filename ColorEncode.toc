@@ -1,5 +1,6 @@
-## Interface: 60100
+## Interface: 60200
 ## Title: ColorEncode
 ## Notes: Encoding info to set of color
 ## Version: 0.1
+## SavedVariables: colorencode_config
 main.xml
