@@ -87,27 +87,22 @@ function showToolTip(tooltip)
 
     if (isOre(itemName)) then
         isOreColor = buildBoolean(true)
-        ColorEncodeMainFrame_isOre:SetTexture(isOreColor.red, isOreColor.green, isOreColor.blue)
-
-        C_Timer.After(1, function()
-            isOreColor = buildBoolean(false)
-
-            ColorEncodeMainFrame_isOre:SetTexture(isOreColor.red, isOreColor.green, isOreColor.blue)
-
-            tooltip:Hide()
-        end)
     elseif (isHerb(itemName)) then
         isHerbColor = buildBoolean(true)
-        ColorEncodeMainFrame_isHerb:SetTexture(isHerbColor.red, isHerbColor.green, isHerbColor.blue)
-
-        C_Timer.After(1, function()
-            isHerbColor = buildBoolean(false)
-
-            ColorEncodeMainFrame_isHerb:SetTexture(isHerbColor.red, isHerbColor.green, isHerbColor.blue)
-
-            tooltip:Hide()
-        end)
     end
+
+    ColorEncodeMainFrame_isHerb:SetTexture(isHerbColor.red, isHerbColor.green, isHerbColor.blue)
+    ColorEncodeMainFrame_isOre:SetTexture(isOreColor.red, isOreColor.green, isOreColor.blue)
+
+    C_Timer.After(1, function()
+        isHerbColor = buildBoolean(false)
+        isOreColor = buildBoolean(false)
+
+        ColorEncodeMainFrame_isHerb:SetTexture(isHerbColor.red, isHerbColor.green, isHerbColor.blue)
+        ColorEncodeMainFrame_isOre:SetTexture(isOreColor.red, isOreColor.green, isOreColor.blue)
+
+        tooltip:Hide()
+    end)
 end
 
 
@@ -121,19 +116,35 @@ end
 
 
 function repaintAddon()
-    --print(UnitReaction("player", "playertarget"))
-
     local x, y = GetPlayerMapPosition("player")
     local pitch = GetUnitPitch("player")
     local azimyth = GetPlayerFacing()
     local isInCombat = UnitAffectingCombat("player")
+    local hasTarget = UnitExists("target")
+    local inActionRange = IsActionInRange(1)
 
-    xColor = buildCoordinates(x)
-    yColor = buildCoordinates(y)
-    pitchColor = buildPitch(pitch)
+    if (x > 0 and x < 100) then
+        xColor = buildCoordinates(x)
+    else
+        xColor = buildBoolean(false)
+    end
+
+    if (y > 0 and y < 100) then
+        yColor = buildCoordinates(y)
+    else
+        yColor = buildBoolean(false)
+    end
+    
+    if (pitch == 0) then
+        pitchColor = buildBoolean(false)
+    else
+        pitchColor = buildPitch(pitch)
+    end
+
     azimythColor = buildAzimyth(azimyth)
     isInCombatColor = buildBoolean(isInCombat)
-
+    hasTargetColor = buildBoolean(hasTarget)
+    inActionRangeColor = buildBoolean(inActionRange)
 
 
     ColorEncodeMainFrame_xTex:SetTexture(xColor.red, xColor.green, xColor.blue);
@@ -141,6 +152,8 @@ function repaintAddon()
     ColorEncodeMainFrame_pitchTex:SetTexture(pitchColor.red, pitchColor.green, pitchColor.blue);
     ColorEncodeMainFrame_azimythTex:SetTexture(azimythColor.red, azimythColor.green, azimythColor.blue);
     ColorEncodeMainFrame_isInCombatTex:SetTexture(isInCombatColor.red, isInCombatColor.green, isInCombatColor.blue);
+    ColorEncodeMainFrame_hasTargetTex:SetTexture(hasTargetColor.red, hasTargetColor.green, hasTargetColor.blue);
+    ColorEncodeMainFrame_inActionRangeTex:SetTexture(inActionRangeColor.red, inActionRangeColor.green, inActionRangeColor.blue);
 end
 
 

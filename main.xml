@@ -93,6 +93,28 @@
         </Texture>
       </Layer>
 
+      <Layer level="ARTWORK">
+        <Texture name="$parent_hasTargetTex">
+          <Size x="10" y="10"/>
+          <Anchors>
+            <Anchor point="TOPLEFT"
+                    relativeTo="$parent_isInCombatTex"
+                    relativePoint="TOPRIGHT"/>
+          </Anchors>
+        </Texture>
+      </Layer>
+
+      <Layer level="ARTWORK">
+        <Texture name="$parent_inActionRangeTex">
+          <Size x="11" y="10"/>
+          <Anchors>
+            <Anchor point="TOPLEFT"
+                    relativeTo="$parent_hasTargetTex"
+                    relativePoint="TOPRIGHT"/>
+          </Anchors>
+        </Texture>
+      </Layer>
+
 
 
       <Layer level="ARTWORK">

@@ -1,0 +1,14 @@
+.idea
+bin
+*.iml
+.project
+.DS_Store
+classes
+*.iq
+out
+
+test/source
+test/resources
+test/barrels.jungle
+test/manifest.xml
+test/monkey.jungle

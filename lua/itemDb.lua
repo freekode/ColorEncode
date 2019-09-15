@@ -6,7 +6,8 @@ ores = {
 herbs = {
     'Peacebloom',
     'Earthroot',
-    'Silverleaf'
+    'Silverleaf',
+    'Mageroyal'
 }
 
 
