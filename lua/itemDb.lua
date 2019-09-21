@@ -10,14 +10,13 @@ herbs = {
     'Mageroyal'
 }
 
-
 function isHerb(name)
     for i, elem in ipairs(herbs) do
         if (name == elem) then
             return true
         end
     end
-    
+
     return false
 end
 

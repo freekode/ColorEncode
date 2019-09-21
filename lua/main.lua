@@ -1,4 +1,4 @@
-colorencode_updateInterval = 0.1
+colorencode_updateInterval = 0.2
 colorencode_sinceLastUpdate = 0
 colorencode_standart_config = {
     mainframe = {
@@ -11,20 +11,18 @@ colorencode_standart_config = {
     }
 }
 
-
-function onload(self)
-    print("ColorEncode v" .. GetAddOnMetadata("ColorEncode", "Version") .. " loaded");
-
-    hideToolTip()
+function onLoad(self)
+    --hideToolTip()
 
     self:RegisterEvent("VARIABLES_LOADED")
     self:RegisterEvent("ZONE_CHANGED_NEW_AREA")
     self:RegisterEvent("BAG_UPDATE")
+
+    print("ColorEncode v" .. GetAddOnMetadata("ColorEncode", "Version") .. " loaded");
 end
 
-
-function onupdate(self, elapsed)
-    colorencode_sinceLastUpdate = colorencode_sinceLastUpdate + elapsed;  
+function onUpdate(self, elapsed)
+    colorencode_sinceLastUpdate = colorencode_sinceLastUpdate + elapsed;
     if (colorencode_sinceLastUpdate > colorencode_updateInterval) then
         repaintAddon()
 
@@ -32,10 +30,9 @@ function onupdate(self, elapsed)
     end
 end
 
-
-function onevent(self, event, ...)
+function onEvent(self, event, ...)
     if (event == "VARIABLES_LOADED") then
-        variablesLoaded()
+        onVariablesLoaded()
     end
 
     if (event == "ZONE_CHANGED_NEW_AREA") then
@@ -47,115 +44,66 @@ function onevent(self, event, ...)
     end
 end
 
-
-function variablesLoaded()
+function onVariablesLoaded()
     if colorencode_config == nil then
         colorencode_config = colorencode_standart_config
     end
 
-    configureMainFrame(colorencode_config.mainframe)
+    UIFrame:configure(colorencode_config.mainframe)
 end
-
-
-function configureMainFrame(config)
-    ColorEncodeMainFrame:SetPoint(config.point, config.relativeFrame, config.relativePoint, config.offsetX, config.offsetY)
-end
-
 
 function bagUpdate()
-	bagUpdateColor = buildBoolean(true)
-    
-    ColorEncodeMainFrame_bagUpdated:SetTexture(bagUpdateColor.red, bagUpdateColor.green, bagUpdateColor.blue)
-
-    C_Timer.After(2, function()
-        bagUpdateColor = buildBoolean(false)
-        ColorEncodeMainFrame_bagUpdated:SetTexture(bagUpdateColor.red, bagUpdateColor.green, bagUpdateColor.blue)
-    end)
+    UIFrame:bagUpdated()
 end
-
 
 function zoneChanged()
-    SetMapToCurrentZone();
+--    SetMapToCurrentZone();
 end
-
 
 function showToolTip(tooltip)
-    local itemName = GameTooltipTextLeft1:GetText()
-
-    isHerbColor = buildBoolean(false)
-    isOreColor = buildBoolean(false)
-
-    if (isOre(itemName)) then
-        isOreColor = buildBoolean(true)
-    elseif (isHerb(itemName)) then
-        isHerbColor = buildBoolean(true)
-    end
-
-    ColorEncodeMainFrame_isHerb:SetTexture(isHerbColor.red, isHerbColor.green, isHerbColor.blue)
-    ColorEncodeMainFrame_isOre:SetTexture(isOreColor.red, isOreColor.green, isOreColor.blue)
-
-    C_Timer.After(1, function()
-        isHerbColor = buildBoolean(false)
-        isOreColor = buildBoolean(false)
-
-        ColorEncodeMainFrame_isHerb:SetTexture(isHerbColor.red, isHerbColor.green, isHerbColor.blue)
-        ColorEncodeMainFrame_isOre:SetTexture(isOreColor.red, isOreColor.green, isOreColor.blue)
-
-        tooltip:Hide()
-    end)
+    --local itemName = GameTooltipTextLeft1:GetText()
+    --
+    --isHerbColor = buildBoolean(false)
+    --isOreColor = buildBoolean(false)
+    --
+    --if (isOre(itemName)) then
+    --    isOreColor = buildBoolean(true)
+    --elseif (isHerb(itemName)) then
+    --    isHerbColor = buildBoolean(true)
+    --end
+    --
+    --ColorEncodeMainFrame_isHerb:SetTextureColor(isHerbColor.red, isHerbColor.green, isHerbColor.blue)
+    --ColorEncodeMainFrame_isOre:SetTextureColor(isOreColor.red, isOreColor.green, isOreColor.blue)
+    --
+    --C_Timer.After(1, function()
+    --    isHerbColor = buildBoolean(false)
+    --    isOreColor = buildBoolean(false)
+    --
+    --    ColorEncodeMainFrame_isHerb:SetTextureColor(isHerbColor.red, isHerbColor.green, isHerbColor.blue)
+    --    ColorEncodeMainFrame_isOre:SetTextureColor(isOreColor.red, isOreColor.green, isOreColor.blue)
+    --
+    --    tooltip:Hide()
+    --end)
 end
-
 
 function hideToolTip(tooltip)
-    isOreColor = buildBoolean(false)
-    isHerbColor = buildBoolean(false)
-
-    ColorEncodeMainFrame_isHerb:SetTexture(isHerbColor.red, isHerbColor.green, isHerbColor.blue)
-    ColorEncodeMainFrame_isOre:SetTexture(isOreColor.red, isOreColor.green, isOreColor.blue)
+    --isOreColor = buildBoolean(false)
+    --isHerbColor = buildBoolean(false)
+    --
+    --ColorEncodeMainFrame_isHerb:SetTextureColor(isHerbColor.red, isHerbColor.green, isHerbColor.blue)
+    --ColorEncodeMainFrame_isOre:SetTextureColor(isOreColor.red, isOreColor.green, isOreColor.blue)
 end
-
 
 function repaintAddon()
-    local x, y = GetPlayerMapPosition("player")
-    local pitch = GetUnitPitch("player")
-    local azimyth = GetPlayerFacing()
-    local isInCombat = UnitAffectingCombat("player")
-    local hasTarget = UnitExists("target")
-    local inActionRange = IsActionInRange(1)
-
-    if (x > 0 and x < 100) then
-        xColor = buildCoordinates(x)
-    else
-        xColor = buildBoolean(false)
-    end
-
-    if (y > 0 and y < 100) then
-        yColor = buildCoordinates(y)
-    else
-        yColor = buildBoolean(false)
-    end
-    
-    if (pitch == 0) then
-        pitchColor = buildBoolean(false)
-    else
-        pitchColor = buildPitch(pitch)
-    end
-
-    azimythColor = buildAzimyth(azimyth)
-    isInCombatColor = buildBoolean(isInCombat)
-    hasTargetColor = buildBoolean(hasTarget)
-    inActionRangeColor = buildBoolean(inActionRange)
-
-
-    ColorEncodeMainFrame_xTex:SetTexture(xColor.red, xColor.green, xColor.blue);
-    ColorEncodeMainFrame_yTex:SetTexture(yColor.red, yColor.green, yColor.blue);
-    ColorEncodeMainFrame_pitchTex:SetTexture(pitchColor.red, pitchColor.green, pitchColor.blue);
-    ColorEncodeMainFrame_azimythTex:SetTexture(azimythColor.red, azimythColor.green, azimythColor.blue);
-    ColorEncodeMainFrame_isInCombatTex:SetTexture(isInCombatColor.red, isInCombatColor.green, isInCombatColor.blue);
-    ColorEncodeMainFrame_hasTargetTex:SetTexture(hasTargetColor.red, hasTargetColor.green, hasTargetColor.blue);
-    ColorEncodeMainFrame_inActionRangeTex:SetTexture(inActionRangeColor.red, inActionRangeColor.green, inActionRangeColor.blue);
+    playerStatus = WoW:getPlayerStatus()
+    UIFrame:setX(playerStatus.x)
+    UIFrame:setY(playerStatus.y)
+    UIFrame:setPitch(playerStatus.pitch)
+    UIFrame:setAzimuth(playerStatus.azimuth)
+    UIFrame:setInCombat(playerStatus.isInCombat)
+    UIFrame:setHasTarget(playerStatus.hasTarget)
+    UIFrame:setIsInActionRange(playerStatus.isInActionRange)
 end
-
 
 GameTooltip:HookScript('OnShow', showToolTip)
 GameTooltip:HookScript('OnHide', hideToolTip)

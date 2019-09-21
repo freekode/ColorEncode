@@ -1,12 +1,11 @@
 SLASH_COLORENCODE1 = '/colorenc';
 SlashCmdList['COLORENCODE'] = function(msg, editbox)
-    args= {}
+    args = {}
     index = 0
     for elem in string.gmatch(msg, '%S+') do
         args[index] = elem
         index = index + 1
     end
-
 
     if args[0] == 'show' then
         MainFrame:Show()
@@ -37,24 +36,21 @@ function printHelp()
 end
 
 function printCoordinates()
-    local x, y = GetPlayerMapPosition('player')
-    local pitch = GetUnitPitch('player')
-    local azimyth = GetPlayerFacing()
-    local isInCombat = UnitAffectingCombat('player')
+    playerStatus = WoW:getPlayerStatus()
 
-    x = string.format('%.6f', x)
-    y = string.format('%.6f', y)
-    pitch = string.format('%.3f', pitch)
-    azimyth = string.format('%.5f', azimyth)
+    x = string.format('%.6f', playerStatus.x)
+    y = string.format('%.6f', playerStatus.y)
+    pitch = string.format('%.3f', playerStatus.pitch)
+    azimuth = string.format('%.5f', playerStatus.azimuth)
 
     print('Information:\n' ..
-        'x=[|cFFFF0066' .. x .. '|r]; y=[|cFFFF6600' .. y .. '|r];\n' ..
-        'pitch=[|cFF9933FF' .. pitch .. '|r]; azimyth=[|cFF0099FF' .. azimyth .. '|r];\n' ..
-        'isInCombat=['.. tostring(isInCombat) ..']')
+            'x=[|cFFFF0066' .. x .. '|r]; y=[|cFFFF6600' .. y .. '|r];\n' ..
+            'pitch=[|cFF9933FF' .. pitch .. '|r]; azimyth=[|cFF0099FF' .. azimuth .. '|r];\n' ..
+            'isInCombat=[' .. tostring(playerStatus.isInCombat) .. ']')
 end
 
 function setConfig(config)
-    for k,v in pairs(config) do
+    for k, v in pairs(config) do
         colorencode_config.mainframe[k] = config[k]
 
         print(k .. '=' .. config[k])

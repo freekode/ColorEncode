@@ -1,4 +1,4 @@
-## Interface: 10000
+## Interface: 11302
 ## Title: ColorEncode
 ## Notes: Encoding info to set of color
 ## Version: 0.1
