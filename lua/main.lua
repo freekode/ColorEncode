@@ -18,6 +18,8 @@ function onLoad(self)
     self:RegisterEvent("ZONE_CHANGED_NEW_AREA")
     self:RegisterEvent("BAG_UPDATE")
 
+    UIFrame:init()
+
     print("ColorEncode v" .. GetAddOnMetadata("ColorEncode", "Version") .. " loaded");
 end
 

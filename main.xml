@@ -14,7 +14,7 @@
 		   hidden="false"
 		   enableMouse="true">
 
-		<Size x="40" y="30"/>
+		<Size x="45" y="40"/>
 		<!-- <Anchors>
 		  <Anchor point="TOPLEFT">
 			<Offset x="0" y="0"/>
@@ -36,10 +36,8 @@
 		  <Color r="0.2" g="0.2" b="0.2" a="0.7"/>
 		</Backdrop> -->
 
-		<!-- <Frames>
-		</Frames> -->
-
 		<Layers>
+			<!-- First line: x, y, azimuth, pitch -->
 			<Layer level="ARTWORK">
 				<Texture name="$parent_xTex">
 					<Size x="11" y="11"/>
@@ -62,28 +60,28 @@
 			</Layer>
 
 			<Layer level="ARTWORK">
-				<Texture name="$parent_pitchTex">
-					<Size x="11" y="11"/>
-					<Anchors>
-						<Anchor point="TOPLEFT"
-								relativeTo="$parent_yTex"
-								relativePoint="TOPRIGHT">
-						</Anchor>
-					</Anchors>
-				</Texture>
-			</Layer>
-
-			<Layer level="ARTWORK">
 				<Texture name="$parent_azimuthTex">
 					<Size x="11" y="11"/>
 					<Anchors>
 						<Anchor point="TOPLEFT"
-								relativeTo="$parent_pitchTex"
+								relativeTo="$parent_yTex"
 								relativePoint="TOPRIGHT"/>
 					</Anchors>
 				</Texture>
 			</Layer>
 
+			<Layer level="ARTWORK">
+				<Texture name="$parent_pitchTex">
+					<Size x="11" y="11"/>
+					<Anchors>
+						<Anchor point="TOPLEFT"
+								relativeTo="$parent_azimuthTex"
+								relativePoint="TOPRIGHT"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+
+			<!-- Second line: in combat, has target, in range -->
 			<Layer level="ARTWORK">
 				<Texture name="$parent_isInCombatTex">
 					<Size x="11" y="10"/>
@@ -107,7 +105,7 @@
 			</Layer>
 
 			<Layer level="ARTWORK">
-				<Texture name="$parent_inActionRangeTex">
+				<Texture name="$parent_isInActionRangeTex">
 					<Size x="11" y="10"/>
 					<Anchors>
 						<Anchor point="TOPLEFT"
@@ -117,6 +115,7 @@
 				</Texture>
 			</Layer>
 
+			<!-- Third line: is herb, is ore -->
 			<Layer level="ARTWORK">
 				<Texture name="$parent_isHerb">
 					<Size x="11" y="11"/>
@@ -140,6 +139,7 @@
 				</Texture>
 			</Layer>
 
+			<!-- Fourth line: bag updated -->
 			<Layer level="ARTWORK">
 				<Texture name="$parent_bagUpdated">
 					<Color a="1" r="0" g="0" b="0"/>
